@@ -1,0 +1,48 @@
+
+
+var express = require('express');
+var router = express.Router();
+
+let flowers = [
+  'Orchid', 
+  'Iris', 
+  'Hydrangea', 
+  'Amaryllis', 
+  'Dahlia', 
+  'Daffodil', 
+  'Bleeding Heart'
+]
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  
+  // res.render('index', { title: 'Express' });
+
+  let queryFlower = req.query.flower; 
+
+  if (flowers.includes(queryFlower)) {
+    res.send('Yes, we have ' + queryFlower + ' ' + 'in our garden');
+  }
+
+  else {
+    res.send('Nope, we do not have ' + queryFlower + ' ' + 'in our garden, but maybe we should plant it!');
+  }
+
+});
+
+  router.post('/', function(req, res, next) {
+    
+    let addFlower = req.body;
+    
+    if (flowers.includes(addFlower.flower)) {
+      res.send('We already have that flower, no need to add it');
+    } 
+    
+    else {
+      flowers.push(addFlower.flower);
+      res.send(flowers);
+    }
+
+});
+
+module.exports = router;
